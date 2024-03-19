@@ -31,8 +31,11 @@ struct Player createPlayer(int id, char *name){
 };
 
 struct GameTable{
+	struct PokerDeck tableDeck;
+
 	int tableID;
 	struct Player players_[8];
+
 	float currPot;
 	struct PokerCard currCards[5];
 };
@@ -55,8 +58,9 @@ const char *Pokertype_To_String[3] = {"Pot Limit Omaha", "No Limit HoldEm", "Sho
 const char *Pokertype_To_Abreviation[3] = {"PLO", "NL Hold'em", "ShortDeck"};
 
 struct Round{
-	int smallBlind;
-	int bigBlind;
+	int level;
+	float smallBlind;
+	float bigBlind;
 
 };
 
@@ -65,15 +69,18 @@ struct Round constructFirstRound(int sb, int bb){
 
 	newRound.smallBlind = sb;
 	newRound.bigBlind = bb;
+	newRound.level = 1;
 
 	return newRound;
 };
+
 
 // " <Class>-><Field> " <=> "(*<Class>).<Field> SAME SAME
 
 void advanceRound(struct Round *round_){
 	round_->bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
 	round_->smallBlind*=2;
+	round_->level+=1;
 };
 
 struct PokerGame{
@@ -81,4 +88,5 @@ struct PokerGame{
 	enum PokerType pokertype;
 	struct Player *players;
 	struct Round round;
+	float PrizePool;
 };

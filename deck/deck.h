@@ -1,6 +1,6 @@
 #ifndef DECK_H
 #define DECK_H
-#define REGULARDECKSIZE  56
+#define REGULARDECKSIZE  52
 #define SHORTDECKSIZE 32
 	
 
@@ -20,7 +20,6 @@
 	enum Value {
 
 		ACE=1,
-		ONE,
 		TWO,
 		THREE,
 		FOUR,
@@ -48,8 +47,10 @@
 		struct PokerCard deck[REGULARDECKSIZE];
 	};
 
-	void getAllCards(struct PokerCard* deck_);
+	void shuffleDeck(struct PokerCard *deck);
+	void getAllCards(struct PokerCard *deck);
 	struct PokerDeck constructPokerDeck();
+
 
 
 #endif
