@@ -25,6 +25,7 @@ int getRandomInteger(int n){
 	return r % n;
 
 }
+
 void shuffleDeck(struct PokerCard *deck){
 	// @FixBug: Segmenation Fault when entering here 
 	//
@@ -40,6 +41,14 @@ void shuffleDeck(struct PokerCard *deck){
 
 	}
 
+};
+
+struct PokerCard* drawCardRandomCard(struct PokerCard *deck){
+	return &deck[getRandomInteger(REGULARDECKSIZE)];
+};
+
+struct PokerCard *drawCard(struct PokerCard *deck, int topOfDeck){
+	return &deck[topOfDeck];
 };
 
 // @ToDo: Should return instead?

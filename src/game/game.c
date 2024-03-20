@@ -44,7 +44,6 @@ enum PokerType{
 	OMAHA,
 	SHORTDECK,
 	HOLDEM,
-
 };
 
 // char <identifier>[ROW][COL] <=> char *<identifier>[ROW]
@@ -74,6 +73,12 @@ struct Round constructFirstRound(int sb, int bb){
 	return newRound;
 };
 
+struct GameSate{
+	struct GameTable tables[10];
+	enum PokerType pokertype;
+	struct Round round;
+	struct Player *players;
+};
 
 // " <Class>-><Field> " <=> "(*<Class>).<Field> SAME SAME
 
@@ -81,12 +86,4 @@ void advanceRound(struct Round *round_){
 	round_->bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
 	round_->smallBlind*=2;
 	round_->level+=1;
-};
-
-struct PokerGame{
-	struct GameTable tables[10];
-	enum PokerType pokertype;
-	struct Player *players;
-	struct Round round;
-	float PrizePool;
 };

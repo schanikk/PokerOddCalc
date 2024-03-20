@@ -3,6 +3,9 @@
 #define REGULARDECKSIZE  52
 #define SHORTDECKSIZE 32
 	
+	extern char *Color_To_String[]; // Declares an Array of Pointers. Where each Pointers is an array pointer
+	extern char Value_To_AutString[];
+	extern char *Value_To_String[];
 
 	// Should Color & Value be inside deck.c? Because it is only used internaly? 
 	enum Color {
@@ -12,10 +15,6 @@
 		SPADES,
 		CLUBS,
 	};
-
-	extern char *Color_To_String[]; // Declares an Array of Pointers. Where each Pointers is an array pointer
-
-	
 
 	enum Value {
 
@@ -33,9 +32,6 @@
 		QUEN,
 		KING,
 	};
-	
-	extern char Value_To_AutString[];
-	extern char *Value_To_String[];
 
 	struct PokerCard {
 
@@ -46,11 +42,11 @@
 	struct PokerDeck{
 		struct PokerCard deck[REGULARDECKSIZE];
 	};
-
+	
 	void shuffleDeck(struct PokerCard *deck);
 	void getAllCards(struct PokerCard *deck);
+
 	struct PokerDeck constructPokerDeck();
-
-
+	struct PokerDeck* drawCard(struct PokerDeck *deck, int topOfDeck);
 
 #endif
