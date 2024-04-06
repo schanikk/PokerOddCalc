@@ -10,11 +10,14 @@ enum UserAction {
 	DELET_BOARD_HAND,
 };
 
+
+// ToDo: Change to Hierarchical Commands (Group by First Hirarchy: Set, Remove, Show, Reset, Second: Entity( UTG, BB, SB, Flop,Turn, River))
 static const char* InputToUserAction[9] = {"reset board", "reset player", "show info", "set card", "set card [0-9]", "set board", "delete", "delete player", "delete board hand"};	// This List must match UserActions
 
-int getUserActionIndex(char* input){
+int getUserActionIndexByInput(*char input){
 	int index;
-	for (int i = 0; i < sizeof(InputToUserAction); i++){
+	int arr_length = sizeof(input) / sizeof(input[0]);
+	for (int i = 0; i < arr_length; i++){
 		if(InputToUserAction[i] == input){
 			index = i;
 		}
@@ -23,11 +26,21 @@ int getUserActionIndex(char* input){
 	return index;
 };
 
-enum UserAction getUserAction(char* input){
+
+char *Tokenize(char* input){
+
+	char* tokens[];
+
+	return tokens;
+};
+
+enum UserAction getUserActionByInput(char* input){
 	enum UserAction user_action;
 	// ToDo: Choosing Enum by Integer Representation?;
 	//
 	// Best way to build own commands?
+	//
+	// Parser + Lexer (But overkill) for now we do simple regex matching
 	user_action = getUserAction(input);
 	return user_action;
 };
