@@ -10,12 +10,16 @@
 #define EIGHTMAX 6
 #define MAXNAMELENGTH 25
 
-struct Player{
-	int playerID;
-	char name[MAXNAMELENGTH];
-	struct PokerCard currHand[OMAHAHANDSIZE];
-	float currChips;
-};
+struct Player; // Represents Player
+struct Table; // Represent Table and Seats (UTG, BB,SB,D)
+struct Game; // Handles Big Blind, Small Blind etc aswell as Player Forwarding
+struct Hand;
+struct Board;
+
+struct Deck;
+struct Card;
+
+struct Action;
 
 struct Player createPlayer(int id, char *name){
 	struct Player player;
@@ -127,12 +131,22 @@ const enum Position *TableSize_To_Seats[2] = {{BIG_BLIND, UNDER_THE_GUN, UNDER_T
 const char *Position_To_Abbrev[8] = {"BB", "UTG", "UTG+1", "LJ", "HJ", "CO", "D", "SB"};
 const char *Position_To_String[8] = {"BigBlind", "Under The Gun", "Under The Gun+1", "LoJack", "HighJack", "CUTOFF", "Dealer", "SmallBlind"};
 
+
 struct Round{
 	int level;
 	float smallBlind;
 	float bigBlind;
 
 };
+
+
+void advanceRound(struct Round *round_){
+	round_->bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
+	round_->smallBlind*=2;
+	round_->level+=1;
+};
+
+
 
 struct Round constructFirstRound(float sb, float bb){
 	struct Round newRound;
@@ -144,8 +158,28 @@ struct Round constructFirstRound(float sb, float bb){
 	return newRound;
 };
 
-struct GameState{
-	struct GameTable tables[10];
+struct Table{
+	struct Player *players;
+	struct Round round;
+};
+
+struct TableState{
+	struct PokerCard board[5];
+	int currentBB;
+	int currentHighestBidder;
+	float currentPot;
+	int currentPlayer;
+};
+
+void advanceState(struct TableState *state, struct Action *action){
+	// Finite State machine logic here
+	// 
+
+};
+
+// " <Class>-><Field> " <=> "(*<Class>).<Field> SAME SAME
+struct GameSate{
+	struct Table *tables;
 	enum PokerType pokertype;
 	struct Round round;
 	struct Player *players;
