@@ -1,0 +1,2 @@
+// ToDo: Change to Hierarchical Commands (Group by First Hirarchy: Set, Remove, Show, Reset, Second: Entity( UTG, BB, SB, Flop,Turn, River))
+static const char* InputToUserAction[9] = {"reset board", "reset player", "show info", "set card", "set card [0-9]", "set board", "delete", "delete player", "delete board hand"};	// This List must match UserActions

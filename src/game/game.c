@@ -1,37 +1,21 @@
 #include <string.h>
 
-#include "game.h"
 #include "deck.h"
+#include "request.h"
 
 #define OMAHAHANDSIZE 4
 #define HOLDEMHANDSIZE 2
-
 #define SIXMAX 8
 #define EIGHTMAX 6
-#define MAXNAMELENGTH 25
+#define MAXNAMELENGTH 12
 
-struct Player; // Represents Player
-struct Table; // Represent Table and Seats (UTG, BB,SB,D)
-struct Game; // Handles Big Blind, Small Blind etc aswell as Player Forwarding
-struct Hand;
-struct Board;
-
-struct Deck;
-struct Card;
-
-struct Action;
-
-struct Player createPlayer(int id, char *name){
-	struct Player player;
-	player.playerID = id;
-
-	// Do not copy name if bufferoverflow
-	if (sizeof(*name) > MAXNAMELENGTH){
-		return player;
-	}
-	strcpy(player.name, name);
-
-	return player;
+enum Position{
+    BIG_BLIND,
+    SMALL_BLIND,
+    DEALER,
+    UTG1,
+    UTG2,
+    UTG3,
 };
 
 int compare_player(const void* obj1, const void* obj2){
@@ -122,6 +106,11 @@ enum Position{
 //
 // NOT UNDERSTANDING: Do we have to declare that the char* pointers within the array are also arrays? I know that Arrays variables holds the Pointer to the first Element but how do we know that we have an array?
 const char *Pokertype_To_String[3] = {"Pot Limit Omaha", "No Limit HoldEm", "Short Deck"};
+
+const char *pokerTypeToString (enum PokerType type){
+    return Pokertype_To_String[type];
+};
+
 const char *Pokertype_To_Abreviation[3] = {"PLO", "NL Hold'em", "ShortDeck"};
 const int Pokertype_To_Number_Of_Cards[3] = {4, 2, 2};
 
@@ -131,6 +120,31 @@ const enum Position *TableSize_To_Seats[2] = {{BIG_BLIND, UNDER_THE_GUN, UNDER_T
 const char *Position_To_Abbrev[8] = {"BB", "UTG", "UTG+1", "LJ", "HJ", "CO", "D", "SB"};
 const char *Position_To_String[8] = {"BigBlind", "Under The Gun", "Under The Gun+1", "LoJack", "HighJack", "CUTOFF", "Dealer", "SmallBlind"};
 
+const char *pokerTypeToAbreviation (enum PokerType type){
+    return Pokertype_To_String[type];
+};
+
+struct Player{
+    int playerID;
+    char name[MAXNAMELENGTH];
+    struct PokerCard currHand[OMAHAHANDSIZE];
+    float currChips;
+};
+
+struct Player createPlayer(int id, char *name){
+	struct Player player;
+	player.playerID = id;
+
+	// Do not copy name if bufferoverflow
+
+	if (strlen(name) >= MAXNAMELENGTH){
+        // Warning when using sizeof(name) / sizeof(name[0]) >=
+		return player;
+	}
+	strncpy(player.name, name, MAXNAMELENGTH);
+
+	return player;
+};
 
 struct Round{
 	int level;
@@ -138,15 +152,6 @@ struct Round{
 	float bigBlind;
 
 };
-
-
-void advanceRound(struct Round *round_){
-	round_->bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
-	round_->smallBlind*=2;
-	round_->level+=1;
-};
-
-
 
 struct Round constructFirstRound(float sb, float bb){
 	struct Round newRound;
@@ -158,23 +163,90 @@ struct Round constructFirstRound(float sb, float bb){
 	return newRound;
 };
 
-struct Table{
-	struct Player *players;
-	struct Round round;
+void advanceRound(struct Round *round_){
+    round_->bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
+    round_->smallBlind*=2;
+    round_->level+=1;
 };
+
+// Interpreter Pattern
 
 struct TableState{
-	struct PokerCard board[5];
-	int currentBB;
-	int currentHighestBidder;
-	float currentPot;
-	int currentPlayer;
+    struct PokerCard board[5];
+    struct PokerCard *playerHands[EIGHTMAX];
 };
 
-void advanceState(struct TableState *state, struct Action *action){
-	// Finite State machine logic here
-	// 
+void resetTable (struct Expression (*expression), struct TableState (*state)){
 
+};
+
+void resetBoard (struct Expression (*expression), struct TableState (*state)){
+
+};
+
+void resetPlayerHand (struct Expression (*expression), struct TableState (*state)){
+
+};
+
+void setPlayerHand (struct Expression (*expression), struct TableState (*state)){
+
+};
+
+void setFlop (struct Expression (*expression), struct TableState (*state)){
+
+};
+void setTurn (struct Expression (*expression), struct TableState (*state)){
+
+};
+void setRiver (struct Expression (*expression), struct TableState (*state)){
+
+};
+
+
+// Old
+void advanceState (struct TableState *state, struct Action action){
+    // Finite State machine logic here
+
+    switch (action.userAction) {
+        case RESET_BOARD:
+            break;
+        case PICK_PLAYER_HAND:
+            break;
+        case SHOW_PLAYER_INFO:
+            break;
+        case SET_CARD_BY_NUMBER:
+            break;
+        case SET_CARD:
+            break;
+        case SET_BOARD_HAND:
+            break;
+        case DELETE_CARD:
+            break;
+        case DELETE_PLAYER_HAND:
+            break;
+        case DELETE_BOARD_HAND:
+            break;
+    }
+
+
+};
+
+struct Table{
+	struct Player *players;
+	struct Round *round;
+    struct TableState state;
+};
+
+struct Table createTable(struct Player (*players), struct Round (*round)){
+
+    struct Table *newTable;
+    struct TableState newState;
+
+    newTable->players = players;
+    newTable->round = round;
+    newTable->state = newState;
+
+    return (*newTable);
 };
 
 // " <Class>-><Field> " <=> "(*<Class>).<Field> SAME SAME
@@ -183,12 +255,4 @@ struct GameSate{
 	enum PokerType pokertype;
 	struct Round round;
 	struct Player *players;
-};
-
-// " <Class>-><Field> " <=> "(*<Class>).<Field> SAME SAME
-
-void advanceRound(struct GameState *state){
-	state->round.bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
-	state->round.smallBlind*=2;
-	state->round.level+=1;
 };

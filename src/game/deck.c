@@ -2,12 +2,19 @@
 #include <stdio.h>
 #include "deck.h"
 
-char *Color_To_String[4] = {"Diamonds", "Hearth", "Spades", "Clubs"}; // Declares an Array of Pointers. Where each Pointers is an array pointer
+enum Color;
 
+enum Value;
+
+struct PokerCard;
+
+struct PokerDeck{
+    struct PokerCard deck[REGULARDECKSIZE];
+};
+
+char *Color_To_String[4] = {"Diamonds", "Hearth", "Spades", "Clubs"}; // Declares an Array of Pointers. Where each Pointer are an array pointer
 char *Value_To_String[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
 char Value_To_AutString[13] = {'A', '2', '3' , '4', '5', '6', '7', '9', 'T', 'J','Q','K'};
-
-
 
 /*
  * Get Almost Uniform random number; (  https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)Randomization.html)
@@ -27,8 +34,11 @@ int getRandomInteger(int n){
 
 }
 
+/*
+ * Using Fisher-Yates shuffle ( https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle )
+ */
 void shuffleDeck(struct PokerCard *deck){
-	// @FixBug: Segmenation Fault when entering here 
+	// @FixBug: Segmentation Fault when entering here
 	//
 	/*
 	 * Using Fisher-Yates shuffle ( https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle )
@@ -40,6 +50,7 @@ void shuffleDeck(struct PokerCard *deck){
     }
 
 	srand ( 123 );
+
 	for(int i = 0; i<REGULARDECKSIZE-2; i++){
 		int j = getRandomInteger(REGULARDECKSIZE);
 		struct PokerCard temp = deck[i];
