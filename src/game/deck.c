@@ -51,6 +51,11 @@ struct PokerCard *drawCard(struct PokerCard *deck, int topOfDeck){
 	return &deck[topOfDeck];
 };
 
+struct PokerCard constructPokerCard(enum Suit suit, enum Value value){
+    struct PokerCard deck = {suit, value};
+    return deck;
+};
+
 // @ToDo: Should return instead?
 void getAllCards(struct PokerCard *deck){
 	
@@ -58,12 +63,10 @@ void getAllCards(struct PokerCard *deck){
 	// Order of declaration matters!
 
 	int pos = 0;
-	for(int i = DIAMONDS; i <= CLUBS; i++ ){
-		for (int k = ACE; k <= KING; k++){
+	for(enum Suit i = DIAMONDS; i <= CLUBS; i++ ){
+		for (enum Value k = ACE; k <= KING; k++){
 
-			struct PokerCard temp_;
-			temp_.value = k;
-			temp_.color = i;
+			struct PokerCard temp_ = constructPokerCard(i, k);
 			*(deck+pos) = temp_;
 			pos+=1;
 		}

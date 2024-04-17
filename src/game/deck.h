@@ -8,7 +8,7 @@
 	extern char *Value_To_String[];
 
 	// Should Color & Value be inside deck.c? Because it is only used internaly? 
-	enum Color {
+	enum Suit {
 	
 		DIAMONDS = 0,
 		HEART,
@@ -34,19 +34,19 @@
 	};
 
 	struct PokerCard {
-
+        enum Suit suit;
 		enum Value value;
-		enum Color color;
 	};
 
 	struct PokerDeck{
 		struct PokerCard deck[REGULARDECKSIZE];
 	};
+
+    struct PokerCard constructPokerCard(enum Suit suit, enum Value value);
+    struct PokerDeck *constructPokerDeck();
+    struct PokerDeck* drawCard(struct PokerDeck *deck, int topOfDeck);
 	
 	void shuffleDeck(struct PokerCard *deck);
 	void getAllCards(struct PokerCard *deck);
-
-	struct PokerDeck constructPokerDeck();
-	struct PokerDeck* drawCard(struct PokerDeck *deck, int topOfDeck);
 
 #endif
