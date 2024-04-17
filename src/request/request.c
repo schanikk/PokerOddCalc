@@ -37,7 +37,6 @@ struct Request{
 	char *arguments[25];
 };
 
-
 struct Request convertUserInput(char* input){
 	enum UserAction user_action = getUserAction();
 	struct Request user_request;
