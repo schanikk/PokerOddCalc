@@ -47,38 +47,33 @@ struct PokerCard* drawCardRandomCard(struct PokerCard *deck){
 	return &deck[getRandomInteger(REGULARDECKSIZE)];
 };
 
-struct PokerCard *drawCard(struct PokerCard *deck, int topOfDeck){
-	return &deck[topOfDeck];
+struct PokerCard *drawCard(struct PokerDeck *deck){
+    struct PokerCard *card = &(deck->deck[deck->topOfDeck]);
+    deck->topOfDeck +=1;
+	return card;
 };
 
 struct PokerCard constructPokerCard(enum Suit suit, enum Value value){
-    struct PokerCard deck = {suit, value};
-    return deck;
+    struct PokerCard card = {suit, value};
+    return card;
 };
 
-// @ToDo: Should return instead?
-void getAllCards(struct PokerCard *deck){
-	
-	// Iterating over Enum possible using simple For Loop (Due that by default Enums receives Values starting from 0, incrementing)
-	// Order of declaration matters!
-
-	int pos = 0;
-	for(enum Suit i = DIAMONDS; i <= CLUBS; i++ ){
-		for (enum Value k = ACE; k <= KING; k++){
-
-			struct PokerCard temp_ = constructPokerCard(i, k);
-			*(deck+pos) = temp_;
-			pos+=1;
-		}
-	}
-
-};
-
-struct PokerDeck constructPokerDeck(){
-
+// @ToDo: Implement Dynamic Allocation (OMAHA vs ShortDeck)
+struct PokerDeck constructPokerDeck(enum PokerType type){
 	struct PokerDeck deck_;
-	// deck_.deck = getAllCards()?
-	getAllCards(deck_.deck);
+    deck_.deckType = type;
+    deck_.deck_size = 52;
+    deck_.topOfDeck = 0;
+
+    int pos = 0;
+    for(enum Suit i = DIAMONDS; i <= CLUBS; i++ ){
+        for (enum Value k = ACE; k <= KING; k++){
+
+            struct PokerCard temp_ = constructPokerCard(i, k);
+            *(deck_.deck+pos) = temp_;
+            pos+=1;
+        }
+    }
 
 	return deck_;
 };

@@ -38,15 +38,24 @@
 		enum Value value;
 	};
 
+    enum PokerType{
+        OMAHA,
+        SHORTDECK,
+        HOLDEM,
+    };
+
 	struct PokerDeck{
 		struct PokerCard deck[REGULARDECKSIZE];
+        enum PokerType deckType;
+        int deck_size;
+        int topOfDeck;
 	};
 
     struct PokerCard constructPokerCard(enum Suit suit, enum Value value);
-    struct PokerDeck *constructPokerDeck();
-    struct PokerDeck* drawCard(struct PokerDeck *deck, int topOfDeck);
+    struct PokerDeck constructPokerDeck(enum PokerType type);
+    struct PokerCard* drawCard(struct PokerDeck *deck);
 	
 	void shuffleDeck(struct PokerCard *deck);
-	void getAllCards(struct PokerCard *deck);
+	void getAllCards(struct PokerCard *deck, enum PokerType type);
 
 #endif
