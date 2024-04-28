@@ -101,18 +101,6 @@ void resetTable(struct GameTable *table){
     };
 };
 
-enum PokerType{
-	OMAHA,
-	SHORTDECK,
-	HOLDEM,
-};
-
-// @ToDo: Fix Naming
-enum TableSize{
-    SIXMAX,
-    EIGHTMAX,
-};
-
 enum Position{
     BIG_BLIND,
     UNDER_THE_GUN,
