@@ -134,7 +134,7 @@ struct Round{
 
 };
 
-struct Round constructFirstRound(int sb, int bb){
+struct Round constructFirstRound(float sb, float bb){
 	struct Round newRound;
 
 	newRound.smallBlind = sb;
@@ -144,7 +144,7 @@ struct Round constructFirstRound(int sb, int bb){
 	return newRound;
 };
 
-struct GameSate{
+struct GameState{
 	struct GameTable tables[10];
 	enum PokerType pokertype;
 	struct Round round;
@@ -153,8 +153,8 @@ struct GameSate{
 
 // " <Class>-><Field> " <=> "(*<Class>).<Field> SAME SAME
 
-void advanceRound(struct Round *round_){
-	round_->bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
-	round_->smallBlind*=2;
-	round_->level+=1;
+void advanceRound(struct GameState *state){
+	state->round.bigBlind*=2; // " -> " Arrow Operator derefenreces before acessing struct fields
+	state->round.smallBlind*=2;
+	state->round.level+=1;
 };

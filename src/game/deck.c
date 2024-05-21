@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "deck.h"
 
 char *Color_To_String[4] = {"Diamonds", "Hearth", "Spades", "Clubs"}; // Declares an Array of Pointers. Where each Pointers is an array pointer
@@ -32,6 +33,12 @@ void shuffleDeck(struct PokerCard *deck){
 	/*
 	 * Using Fisher-Yates shuffle ( https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle )
 	 */
+
+    if (deck == NULL){
+        fprintf(stderr, "Error: deck is NULL\n");
+        return;
+    }
+
 	srand ( 123 );
 	for(int i = 0; i<REGULARDECKSIZE-2; i++){
 		int j = getRandomInteger(REGULARDECKSIZE);
@@ -43,13 +50,28 @@ void shuffleDeck(struct PokerCard *deck){
 
 };
 
-struct PokerCard* drawCardRandomCard(struct PokerCard *deck){
+struct PokerCard *drawCardRandomCard(struct PokerCard *deck){
+    if (deck == NULL){
+        fprintf(stderr, "Error: deck is NULL\n");
+        return NULL;
+    }
 	return &deck[getRandomInteger(REGULARDECKSIZE)];
 };
 
 struct PokerCard *drawCard(struct PokerDeck *deck){
+
+    if (deck == NULL){
+        fprintf(stderr, "Error: deck is NULL\n");
+        return NULL;
+    };
+    if (deck->topOfDeck >= deck->deck_size){
+        fprintf(stderr, "Error: Deck is Empty\n");
+        return NULL;
+    };
+
     struct PokerCard *card = &(deck->deck[deck->topOfDeck]);
     deck->topOfDeck +=1;
+
 	return card;
 };
 
