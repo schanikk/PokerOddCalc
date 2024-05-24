@@ -9,32 +9,6 @@
 #define EIGHTMAX 6
 #define MAXNAMELENGTH 12
 
-enum Position{
-    BIG_BLIND,
-    SMALL_BLIND,
-    DEALER,
-    UTG1,
-    UTG2,
-    UTG3,
-};
-
-int compare_player(const void* obj1, const void* obj2){
-    const struct Player* p1 = obj1;
-    const struct Player* p2 = obj2;
-    int diff;
-
-    diff = p1->playerID - p2->playerID;
-    if(diff != 0){
-        return diff;
-    }
-    diff = strcmp(p1->name, p2->name);
-    if(diff != 0){
-        return diff;
-    }
-
-    return 0;
-};
-
 struct GameTable{
 	struct PokerDeck tableDeck;
 
@@ -146,6 +120,26 @@ struct Player createPlayer(int id, char *name){
 	return player;
 };
 
+int compare_player(const void* obj1, const void* obj2){
+    const struct Player* p1 = obj1;
+    const struct Player* p2 = obj2;
+    int diff;
+
+    diff = p1->playerID - p2->playerID;
+
+    if(diff != 0){
+        return diff;
+    }
+
+    diff = strcmp(p1->name, p2->name);
+
+    if(diff != 0){
+        return diff;
+    }
+
+    return 0;
+};
+
 struct Round{
 	int level;
 	float smallBlind;
@@ -170,7 +164,6 @@ void advanceRound(struct Round *round_){
 };
 
 // Interpreter Pattern
-
 struct TableState{
     struct PokerCard board[5];
     struct PokerCard *playerHands[EIGHTMAX];
