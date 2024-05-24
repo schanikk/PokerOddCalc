@@ -2,19 +2,10 @@
 #include <stdio.h>
 #include "deck.h"
 
-enum Color;
 
-enum Value;
-
-struct PokerCard;
-
-struct PokerDeck{
-    struct PokerCard deck[REGULARDECKSIZE];
-};
-
-char *Color_To_String[4] = {"Diamonds", "Hearth", "Spades", "Clubs"}; // Declares an Array of Pointers. Where each Pointer are an array pointer
-char *Value_To_String[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-char Value_To_AutString[13] = {'A', '2', '3' , '4', '5', '6', '7', '9', 'T', 'J','Q','K'};
+const char *Color_To_String[4] = {"Diamonds", "Hearth", "Spades", "Clubs"}; // Declares an Array of Pointers. Where each Pointer are an array pointer
+const char *Value_To_String[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+const char Value_To_AutString[13] = {'A', '2', '3' , '4', '5', '6', '7', '9', 'T', 'J','Q','K'};
 
 /*
  * Get Almost Uniform random number; (  https://www.cs.yale.edu/homes/aspnes/pinewiki/C(2f)Randomization.html)
@@ -95,7 +86,7 @@ struct PokerCard constructPokerCard(enum Suit suit, enum Value value){
 struct PokerDeck constructPokerDeck(enum PokerType type){
 	struct PokerDeck deck_;
     deck_.deckType = type;
-    deck_.deck_size = 52;
+    deck_.deck_size = REGULARDECKSIZE;
     deck_.topOfDeck = 0;
 
     int pos = 0;
