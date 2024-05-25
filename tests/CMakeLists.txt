@@ -7,6 +7,7 @@ include_directories(tests/deck)
 include_directories(tests/game)
 include_directories(tests/controller)
 include_directories(tests/ui)
+include_directories(../src/game/)
 
 add_executable(PokerOddCalc
         main_tests.c
