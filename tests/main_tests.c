@@ -1,5 +1,6 @@
-#include "game/deck_test.h"
 #include <stdio.h>
+#include "game/deck_test.h"
+
 
 void testDeckModule(){
     printf("Testing Deck Module...\n");

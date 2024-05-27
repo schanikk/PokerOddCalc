@@ -1,7 +1,6 @@
 #include <string.h>
 
 #include "deck.h"
-#include "request.h"
 
 #define OMAHAHANDSIZE 4
 #define HOLDEMHANDSIZE 2
@@ -9,59 +8,6 @@
 #define EIGHTMAX 6
 #define MAXNAMELENGTH 12
 
-struct GameTable{
-	struct PokerDeck tableDeck;
-
-	int tableID;
-	struct Player players_[8];
-
-	float currPot;
-	struct PokerCard currCards[5];
-};
-
-
-void setFlop(struct GameTable *table, struct PokerCard *cards){
-    table->currCards[0] = cards[0];
-    table->currCards[1] = cards[0];
-    table->currCards[2] = cards[0];
-};
-
-void setTurn(struct GameTable *table, struct PokerCard card){
-    table->currCards[3] = card;
-};
-
-void setRiver(struct GameTable *table, struct PokerCard card){
-    table->currCards[4] = card;
-};
-
-void SetPlayerHand(struct GameTable *table,struct Player player, struct PokerCard *cards){
-
-    int tableLength=(sizeof(table->players_) / sizeof(table->players_[0]));
-
-    for(int i = 0; i < tableLength; i++){
-
-    };
-};
-
-void resetPlayer(struct Player *player){
-    memset(player->currHand, 0, sizeof(player->currHand));
-};
-
-void resetBoard(struct GameTable *table){
-    if(!table){
-        return;
-    };
-    memset(table->currCards, 0, sizeof(table->currCards));
-};
-
-void resetTable(struct GameTable *table){
-    resetBoard(table);
-
-    int tableLength = (sizeof(table->players_) / sizeof(table->players_[0]));
-    for(int i = 0; i < tableLength; i++){
-        resetPlayer(&table->players_[i]);
-    };
-};
 
 enum Position{
     BIG_BLIND,
@@ -89,7 +35,7 @@ const char *Pokertype_To_Abreviation[3] = {"PLO", "NL Hold'em", "ShortDeck"};
 const int Pokertype_To_Number_Of_Cards[3] = {4, 2, 2};
 
 const int TableSize_To_Number_Of_Players[2] = {6,8};
-const enum Position *TableSize_To_Seats[2] = {{BIG_BLIND, UNDER_THE_GUN, UNDER_THE_GUN_1, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND},{BIG_BLIND, UNDER_THE_GUN, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND}};
+const enum Position TableSize_To_Seats[2][8] = {{BIG_BLIND, UNDER_THE_GUN, UNDER_THE_GUN_1, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND},{BIG_BLIND, UNDER_THE_GUN, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND}};
 
 const char *Position_To_Abbrev[8] = {"BB", "UTG", "UTG+1", "LJ", "HJ", "CO", "D", "SB"};
 const char *Position_To_String[8] = {"BigBlind", "Under The Gun", "Under The Gun+1", "LoJack", "HighJack", "CUTOFF", "Dealer", "SmallBlind"};
@@ -140,6 +86,58 @@ int compare_player(const void* obj1, const void* obj2){
     return 0;
 };
 
+struct GameTable{
+    struct PokerDeck tableDeck;
+    int tableID;
+    struct Player players_[8];
+    float currPot;
+    struct PokerCard currCards[5];
+};
+
+
+void setFlopOfTable(struct GameTable *table, struct PokerCard *cards){
+    table->currCards[0] = cards[0];
+    table->currCards[1] = cards[0];
+    table->currCards[2] = cards[0];
+};
+
+void setTurnOfTable(struct GameTable *table, struct PokerCard card){
+    table->currCards[3] = card;
+};
+
+void setRiverOfTable(struct GameTable *table, struct PokerCard card){
+    table->currCards[4] = card;
+};
+
+void SetPlayerHandOfTable(struct GameTable *table,struct Player player, struct PokerCard *cards){
+
+    int tableLength=(sizeof(table->players_) / sizeof(table->players_[0]));
+
+    for(int i = 0; i < tableLength; i++){
+
+    };
+};
+
+void resetPlayerOfTable(struct Player *player){
+    memset(player->currHand, 0, sizeof(player->currHand));
+};
+
+void resetBoardOfTable(struct GameTable *table){
+    if(!table){
+        return;
+    };
+    memset(table->currCards, 0, sizeof(table->currCards));
+};
+
+void resetTableOfTable(struct GameTable *table){
+    resetBoardOfTable(table);
+
+    int tableLength = (sizeof(table->players_) / sizeof(table->players_[0]));
+    for(int i = 0; i < tableLength; i++){
+        resetPlayerOfTable(&table->players_[i]);
+    };
+};
+
 struct Round{
 	int level;
 	float smallBlind;
@@ -162,6 +160,8 @@ void advanceRound(struct Round *round_){
     round_->smallBlind*=2;
     round_->level+=1;
 };
+
+
 
 // Interpreter Pattern
 struct TableState{
@@ -192,35 +192,6 @@ void setTurn (struct Expression (*expression), struct TableState (*state)){
 
 };
 void setRiver (struct Expression (*expression), struct TableState (*state)){
-
-};
-
-
-// Old
-void advanceState (struct TableState *state, struct Action action){
-    // Finite State machine logic here
-
-    switch (action.userAction) {
-        case RESET_BOARD:
-            break;
-        case PICK_PLAYER_HAND:
-            break;
-        case SHOW_PLAYER_INFO:
-            break;
-        case SET_CARD_BY_NUMBER:
-            break;
-        case SET_CARD:
-            break;
-        case SET_BOARD_HAND:
-            break;
-        case DELETE_CARD:
-            break;
-        case DELETE_PLAYER_HAND:
-            break;
-        case DELETE_BOARD_HAND:
-            break;
-    }
-
 
 };
 

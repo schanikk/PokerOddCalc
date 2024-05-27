@@ -29,7 +29,7 @@ enum UserAction {
     } SetCardExpr;
 
     void interpretSetCard(struct Expression* expression,struct Context* context){
-        SetCardExpr *setCard = (SetCardExpr*) context->expression;;
+        SetCardExpr *setCard = (SetCardExpr*) context->expression;
     };
 
     typedef struct resetBoard {
