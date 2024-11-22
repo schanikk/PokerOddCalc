@@ -1,12 +1,11 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "deck.h"
+#include <time.h>
 
 char *Color_To_String[4] = {"Diamonds", "Hearth", "Spades", "Clubs"}; // Declares an Array of Pointers. Where each Pointers is an array pointer
-
-char *Value_To_String[13] = {"Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
-char Value_To_AutString[13] = {'A', '2', '3' , '4', '5', '6', '7', '9', 'T', 'J','Q','K'};
-
+char *Value_To_String[14] = {"dummy","Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen", "King"};
+char Value_To_AutString[14] = {'d', 'A', '2', '3' , '4', '5', '6', '7', '8','9', 'T', 'J','Q','K'};
 
 
 /*
@@ -39,7 +38,7 @@ void shuffleDeck(struct PokerCard *deck){
         return;
     }
 
-	srand ( 123 );
+	srand (time(0));
 	for(int i = 0; i<REGULARDECKSIZE-2; i++){
 		int j = getRandomInteger(REGULARDECKSIZE);
 		struct PokerCard temp = deck[i];
@@ -90,7 +89,6 @@ struct PokerDeck constructPokerDeck(enum PokerType type){
     int pos = 0;
     for(enum Suit i = DIAMONDS; i <= CLUBS; i++ ){
         for (enum Value k = ACE; k <= KING; k++){
-
             struct PokerCard temp_ = constructPokerCard(i, k);
             *(deck_.deck+pos) = temp_;
             pos+=1;

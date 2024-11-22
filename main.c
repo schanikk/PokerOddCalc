@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "deck/deck.h"
+#include "src/game/deck.h"
 
 
 int main(){
@@ -23,11 +23,11 @@ int main(){
 	{
 
 		printf("First Five Cards Before Shuffling\n");
-		struct PokerDeck deck_ = constructPokerDeck();
+		struct PokerDeck deck_ = constructPokerDeck(HOLDEM);
 
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 25; i++){
 
-			printf("%i. Card: %s%c\n",i, Color_To_String[deck_.deck[i].color], Value_To_AutString[deck_.deck[i].value]);
+			printf("%i. Card: %s%c\n",i, Color_To_String[deck_.deck[i].suit], Value_To_AutString[deck_.deck[i].value]);
 
 		}
 
@@ -35,9 +35,9 @@ int main(){
 		shuffleDeck(deck_.deck);
 		
 		printf("First Five Cards After Shuffling\n");
-		for(int i = 0; i < 5; i++){
+		for(int i = 0; i < 25; i++){
 
-			printf("%i. Card: %s%c\n",i, Color_To_String[deck_.deck[i].color], Value_To_AutString[deck_.deck[i].value]);
+			printf("%i. Card: %s%c\n",i, Color_To_String[deck_.deck[i].suit], Value_To_AutString[deck_.deck[i].value]);
 
 		}
 

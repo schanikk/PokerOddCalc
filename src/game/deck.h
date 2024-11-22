@@ -29,7 +29,7 @@
 		NINE,
 		TEN,
 		JACK,
-		QUEN,
+		QUEEN,
 		KING,
 	};
 

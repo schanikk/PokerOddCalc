@@ -1,11 +1,9 @@
 #include <string.h>
-
 #include "game.h"
 #include "deck.h"
 
 #define OMAHAHANDSIZE 4
 #define HOLDEMHANDSIZE 2
-
 #define SIXMAX 8
 #define EIGHTMAX 6
 #define MAXNAMELENGTH 25
@@ -22,8 +20,8 @@ struct Player createPlayer(int id, char *name){
 	player.playerID = id;
 
 	// Do not copy name if bufferoverflow
-	if (sizeof(*name) > MAXNAMELENGTH){
-		return player;
+	if (strlen(name) > MAXNAMELENGTH){
+		return;
 	}
 	strcpy(player.name, name);
 
@@ -74,6 +72,7 @@ void setRiver(struct GameTable *table, struct PokerCard card){
 
 void SetPlayerHand(struct GameTable *table,struct Player player, struct PokerCard *cards){
 
+
     int tableLength=(sizeof(table->players_) / sizeof(table->players_[0]));
 
     for(int i = 0; i < tableLength; i++){
@@ -82,17 +81,25 @@ void SetPlayerHand(struct GameTable *table,struct Player player, struct PokerCar
 };
 
 void resetPlayer(struct Player *player){
+    if(player == NULL){
+        return;
+    }
     memset(player->currHand, 0, sizeof(player->currHand));
 };
 
 void resetBoard(struct GameTable *table){
-    if(!table){
+    if(table == NULL){
         return;
     };
     memset(table->currCards, 0, sizeof(table->currCards));
 };
 
 void resetTable(struct GameTable *table){
+
+    if(table == NULL){
+        return;
+    }
+
     resetBoard(table);
 
     int tableLength = (sizeof(table->players_) / sizeof(table->players_[0]));
@@ -122,7 +129,7 @@ const char *Pokertype_To_Abreviation[3] = {"PLO", "NL Hold'em", "ShortDeck"};
 const int Pokertype_To_Number_Of_Cards[3] = {4, 2, 2};
 
 const int TableSize_To_Number_Of_Players[2] = {6,8};
-const enum Position *TableSize_To_Seats[2] = {{BIG_BLIND, UNDER_THE_GUN, UNDER_THE_GUN_1, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND},{BIG_BLIND, UNDER_THE_GUN, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND}};
+const enum Position *TableSize_To_Seats[2] = {{BIG_BLIND, LOJACK, HIJACK, CUTOFF,DEALER, SMALL_BLIND}, {BIG_BLIND, UNDER_THE_GUN, UNDER_THE_GUN_1, LOJACK, HIJACK, CUTOFF, DEALER, SMALL_BLIND}};
 
 const char *Position_To_Abbrev[8] = {"BB", "UTG", "UTG+1", "LJ", "HJ", "CO", "D", "SB"};
 const char *Position_To_String[8] = {"BigBlind", "Under The Gun", "Under The Gun+1", "LoJack", "HighJack", "CUTOFF", "Dealer", "SmallBlind"};
