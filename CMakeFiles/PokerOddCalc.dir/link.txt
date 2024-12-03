@@ -1,0 +1,1 @@
+/usr/bin/cc CMakeFiles/PokerOddCalc.dir/src/game/deck.c.o CMakeFiles/PokerOddCalc.dir/src/game/game.c.o CMakeFiles/PokerOddCalc.dir/src/ui/ui.c.o CMakeFiles/PokerOddCalc.dir/main.c.o -o PokerOddCalc 

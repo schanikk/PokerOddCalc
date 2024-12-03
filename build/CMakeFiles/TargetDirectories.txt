@@ -1,0 +1,3 @@
+/home/test/PokerOddCalc/build/CMakeFiles/PokerOddCalc.dir
+/home/test/PokerOddCalc/build/CMakeFiles/edit_cache.dir
+/home/test/PokerOddCalc/build/CMakeFiles/rebuild_cache.dir

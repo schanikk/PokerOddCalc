@@ -3,11 +3,6 @@
 #include "deck.h"
 #include "request.h"
 
-#define OMAHAHANDSIZE 4
-#define HOLDEMHANDSIZE 2
-#define SIXMAX 8
-#define EIGHTMAX 6
-#define MAXNAMELENGTH 12
 
 struct GameTable{
 	struct PokerDeck tableDeck;

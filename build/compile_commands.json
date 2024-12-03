@@ -1,0 +1,22 @@
+[
+{
+  "directory": "/home/test/PokerOddCalc/build",
+  "command": "/usr/bin/clang-18 -I/home/test/PokerOddCalc/src/deck -I/home/test/PokerOddCalc/src/game -I/home/test/PokerOddCalc/src/controller -I/home/test/PokerOddCalc/src/ui -g -std=gnu11 -o CMakeFiles/PokerOddCalc.dir/src/game/deck.c.o -c /home/test/PokerOddCalc/src/game/deck.c",
+  "file": "/home/test/PokerOddCalc/src/game/deck.c"
+},
+{
+  "directory": "/home/test/PokerOddCalc/build",
+  "command": "/usr/bin/clang-18 -I/home/test/PokerOddCalc/src/deck -I/home/test/PokerOddCalc/src/game -I/home/test/PokerOddCalc/src/controller -I/home/test/PokerOddCalc/src/ui -g -std=gnu11 -o CMakeFiles/PokerOddCalc.dir/src/game/game.c.o -c /home/test/PokerOddCalc/src/game/game.c",
+  "file": "/home/test/PokerOddCalc/src/game/game.c"
+},
+{
+  "directory": "/home/test/PokerOddCalc/build",
+  "command": "/usr/bin/clang-18 -I/home/test/PokerOddCalc/src/deck -I/home/test/PokerOddCalc/src/game -I/home/test/PokerOddCalc/src/controller -I/home/test/PokerOddCalc/src/ui -g -std=gnu11 -o CMakeFiles/PokerOddCalc.dir/src/ui/ui.c.o -c /home/test/PokerOddCalc/src/ui/ui.c",
+  "file": "/home/test/PokerOddCalc/src/ui/ui.c"
+},
+{
+  "directory": "/home/test/PokerOddCalc/build",
+  "command": "/usr/bin/clang-18 -I/home/test/PokerOddCalc/src/deck -I/home/test/PokerOddCalc/src/game -I/home/test/PokerOddCalc/src/controller -I/home/test/PokerOddCalc/src/ui -g -std=gnu11 -o CMakeFiles/PokerOddCalc.dir/main.c.o -c /home/test/PokerOddCalc/main.c",
+  "file": "/home/test/PokerOddCalc/main.c"
+}
+]

@@ -2,6 +2,11 @@
 #define DECK_H
 #define REGULARDECKSIZE  52
 #define SHORTDECKSIZE 32
+#define OMAHAHANDSIZE 4
+#define HOLDEMHANDSIZE 2
+#define SIXMAX 8
+#define EIGHTMAX 6
+#define MAXNAMELENGTH 12
 	
 	extern const char *Color_To_String[]; // Declares an Array of Pointers. Where each Pointers is an array pointer
 	extern const char Value_To_AutString[];
